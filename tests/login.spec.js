@@ -37,7 +37,7 @@ test('To test the login page', async ({
 });
 
 
-test('Negative test for invalid login', async ({
+test.only('Negative test for invalid login', async ({
   page
 }) => {
   await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
@@ -53,6 +53,12 @@ test('Negative test for invalid login', async ({
   await expect(page).not.toHaveURL(/dashboard/);
 
   const errorMessage = await page.locator('.oxd-alert-content');
+
   await expect(errorMessage).toBeVisible();
+
   await expect(errorMessage).toHaveText('Invalid credentials');
+
+  await page.waitForTimeout(3000);
+
+
 });
